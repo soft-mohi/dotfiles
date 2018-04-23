@@ -1,0 +1,18 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = 'python'
+
+[[plugins]]
+repo ='scrooloose/nerdtree'
+
+[[plugins]]
+repo ='jistr/vim-nerdtree-tabs'
+
+[[plugins]] #カラースキーマ
+repo = 'w0ng/vim-hybrid'
