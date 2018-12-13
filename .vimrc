@@ -55,7 +55,7 @@ set ruler                    "画面最下行にルーラーを表示する
 set number                   "行番号を表示
 set cursorline               "カーソルのある行に線を表示
 let g:hybrid_use_iTerm_colors = 1
-colorscheme hybrid
+colorscheme nord
 set scrolloff=4              "上下4行の視界を確保
 set laststatus=2             "ステータスラインを常に表示
 set cmdheight=2              "コマンドラインの高さを2行に

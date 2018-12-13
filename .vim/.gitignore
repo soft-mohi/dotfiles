@@ -6,3 +6,4 @@ dein/repos/
 dein/rollbacks/
 dein/temp/
 dein/.dein/
+dein/.cache/

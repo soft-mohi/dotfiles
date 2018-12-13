@@ -25,7 +25,7 @@ bindkey -e
 #色名
 autoload -U colors
 colors
-
+setopt nonomatch
 #------------------
 # プロンプト
 #------------------
