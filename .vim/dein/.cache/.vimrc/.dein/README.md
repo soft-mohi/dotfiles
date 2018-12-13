@@ -1,157 +1,110 @@
-# No longer actively maintained
+# hybrid.vim
 
-I'm no longer using vim-nerdtree-tabs and i'm no longer maintaining it
-actively.
+A dark colour scheme for Vim that combines the:
 
-In case you forked it and moved the code forward, e.g. by fixing a
-considerable chunk of
-the
-[reported issues](https://github.com/jistr/vim-nerdtree-tabs/issues),
-let me know and i'll link your fork here.
+-   Default palette from [Tomorrow-Night](https://github.com/chriskempson/vim-tomorrow-theme).
+-   Reduced contrast palette from [Codecademy](https://www.codecademy.com)'s
+    online editor.
+-   Syntax group highlighting scheme from [Jellybeans](https://github.com/nanotech/jellybeans.vim)
+-   Vimscript from [Solarized](https://github.com/altercation/vim-colors-solarized)
 
-# NERDTree and tabs together in Vim, painlessly
+## Updates
 
-## Features
+-   05/01/2016: Replaced `let g:hybrid_use_Xresources = 1` in favour of __`let
+    g:hybrid_custom_term_colors = 1`__
+-   05/01/2016: Added `let g:hybrid_reduced_contrast = 1`
 
-This plugin aims at making NERDTree feel like a true panel, independent of tabs.
+## Requirements
 
-* **Just one NERDTree**, always and ever. It will always look the same in
-  all tabs, including expanded/collapsed nodes, scroll position etc.
-
-* Open in all tabs / close in all tabs. Do this via `:NERDTreeTabsToggle`
-
-* Meaningful tab captions for inactive tabs. No more captions like 'NERD_tree_1'.
-
-* When you close a file, the tab closes with it. No NERDTree hanging open.
-
-* Autoopen NERDTree on GVim / MacVim startup.
-
-Many of these features can be switched off. See section Configuration.
+-   gVim 7.3+ on Linux, Mac and Windows.
+-   Vim 7.3+ on Linux and Mac, using a terminal that supports 256 colours.
 
 ## Installation
 
-1. If you haven't already, install NERDTree (see https://github.com/scrooloose/nerdtree)
+1.  Copy colors/hybrid.vim to:
 
-2.  Install the plugin **through Pathogen**:
+    ```
+    ~/.vim/colors/hybrid.vim
+    ```
 
-        cd ~/.vim/bundle
-        git clone https://github.com/jistr/vim-nerdtree-tabs.git
+    or alternatively, use a plugin manger such as
+    [vim-plug](https://github.com/junegunn/vim-plug),
+    [NeoBundle](https://github.com/Shougo/neobundle.vim),
+    [Vundle](https://github.com/gmarik/Vundle.vim), or
+    [Pathogen](https://github.com/tpope/vim-pathogen).
 
-    Or **through Vundle**:
+2.  Add to ~/.vimrc:
 
-        Bundle 'jistr/vim-nerdtree-tabs'
+    ```vim
+    set background=dark
+    colorscheme hybrid
+    ```
 
-    Or **through Janus**:
+## Define custom terminal colours (recommended)
 
-        cd ~/.janus
-        git clone https://github.com/jistr/vim-nerdtree-tabs.git
+Due to the limited 256 palette, colours in Vim and gVim will still be slightly
+different.
 
-3. Map :NERDTreeTabsToggle command to some combo so you don't have to type it.
-   Alternatively, you can use plug-mapping instead of a command, like this:
+In order to have Vim use the same colours as gVim (the way this colour scheme
+is intended) define the basic 16 colours in your terminal.
 
-        map <Leader>n <plug>NERDTreeTabsToggle<CR>
+#### Linux users: rxvt-unicode, xterm
 
-4. Celebrate.
+1.  Add the default palette to ~/.Xresources:
 
-## Commands and Mappings
+    https://gist.github.com/3278077
 
-Vim-nerdtree-tabs provides these commands:
+    ![palette](http://dl.dropbox.com/u/23813887/Xresources-palette.png)
 
-* `:NERDTreeTabsOpen` switches NERDTree on for all tabs.
+    or alternatively, add the reduced contrast palette to ~/.Xresources:
 
-* `:NERDTreeTabsClose` switches NERDTree off for all tabs.
+    https://gist.github.com/w0ng/16e33902508b4a0350ae
 
-* `:NERDTreeTabsToggle` toggles NERDTree on/off for all tabs.
+    ![palette](https://www.dropbox.com/s/0ny88dmfw84kcma/Xresources-palette-low.png?dl=1)
 
-* `:NERDTreeTabsFind` find currently opened file and select it
+2.  Add to ~/.vimrc:
 
-* `:NERDTreeMirrorOpen` acts as `:NERDTreeMirror`, but smarter: When opening,
-  it first tries to use an existing tree (i.e. previously closed in this tab or
-  perform a mirror of another tab's tree). If all this fails, a new tree is
-  created. It is recommended that you use this command instead of
-  `:NERDTreeMirror`.
+    ```vim
+    let g:hybrid_custom_term_colors = 1
+    let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+    colorscheme hybrid
+    ```
 
-* `:NERDTreeMirrorToggle` toggles NERDTree on/off in current tab, using
-  the same behavior as `:NERDTreeMirrorOpen`.
+#### OSX users: iTerm
 
-* `:NERDTreeSteppedOpen` focuses the NERDTree, opening one first if none is present.
+1.  Import the default colour preset into iTerm:
 
-* `:NERDTreeSteppedClose` unfocuses the NERDTree, or closes/hides it if it was
-  not focused.
+    https://raw.githubusercontent.com/w0ng/dotfiles/master/iterm2/hybrid.itermcolors
 
-* `:NERDTreeFocusToggle` focus the NERDTree or create it if focus is
-  on a file, unfocus NERDTree if focus is on NERDTree
+    ![iterm_palette](http://i.imgur.com/wSWCyen.png)
 
-There are also plug-mappings available with the same functionality:
+    or alternatively, import the reduced contrast color preset into iTerm:
 
-* `<plug>NERDTreeTabsOpen`
-* `<plug>NERDTreeTabsClose`
-* `<plug>NERDTreeTabsToggle`
-* `<plug>NERDTreeTabsFind`
-* `<plug>NERDTreeMirrorOpen`
-* `<plug>NERDTreeMirrorToggle`
-* `<plug>NERDTreeSteppedOpen`
-* `<plug>NERDTreeSteppedClose`
+    https://raw.githubusercontent.com/w0ng/dotfiles/master/iterm2/hybrid-reduced-contrast.itermcolors
 
-## Configuration
+    ![iterm_palette_reduced](https://www.dropbox.com/s/mrvr3ftkmym0fok/iterm_palette_reduced.png?dl=1)
 
-You can switch on/off some features of the plugin by setting global vars to 1
-(for on) or 0 (for off) in your vimrc. Here are the options and their default
-values:
 
-* `g:nerdtree_tabs_open_on_gui_startup` (default: `1`)  
-  Open NERDTree on gvim/macvim startup. (When set to `2`, 
-  open only if directory was given as startup argument).
+2.  Add to ~/.vimrc:
 
-* `g:nerdtree_tabs_open_on_console_startup` (default: `0`)  
-  Open NERDTree on console vim startup. (When set to `2`, 
-  open only if directory was given as startup argument).
+    ```vim
+    let g:hybrid_custom_term_colors = 1
+    let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+    colorscheme hybrid
+    ```
 
-* `g:nerdtree_tabs_no_startup_for_diff` (default: `1`)  
-  Do not open NERDTree if vim starts in diff mode
+## Screenshots
 
-* `g:nerdtree_tabs_smart_startup_focus` (default: `1`)  
-  On startup, focus NERDTree if opening a directory, focus file if opening
-  a file. (When set to `2`, always focus file window after startup).
+### Default palette on Linux
 
-* `g:nerdtree_tabs_open_on_new_tab` (default: `1`)  
-  Open NERDTree on new tab creation (if NERDTree was globally opened by
-  :NERDTreeTabsToggle)
+![vim-help](http://dl.dropbox.com/u/23813887/vim-help.png)
+![vim-python](http://dl.dropbox.com/u/23813887/vim-python.png)
+![vim-markdown](http://dl.dropbox.com/u/23813887/vim-markdown.png)
+![vim-diff](http://dl.dropbox.com/u/23813887/vim-diff.png)
+![vim-spell](https://dl.dropboxusercontent.com/u/23813887/vim-spell.png)
 
-* `g:nerdtree_tabs_meaningful_tab_names` (default: `1`)  
-  Unfocus NERDTree when leaving a tab for descriptive tab names
+### Reduced contrast palette on OSX
 
-* `g:nerdtree_tabs_autoclose` (default: `1`)  
-  Close current tab if there is only one window in it and it's NERDTree
-
-* `g:nerdtree_tabs_synchronize_view` (default: `1`)  
-  Synchronize view of all NERDTree windows (scroll and cursor position)
-
-* `g:nerdtree_tabs_synchronize_focus` (default: `1`)  
-  Synchronize focus when switching windows (focus NERDTree after tab switch
-  if and only if it was focused before tab switch)
-
-* `g:nerdtree_tabs_focus_on_files` (default: `0`)  
-  When switching into a tab, make sure that focus is on the file window,
-  not in the NERDTree window. (Note that this can get annoying if you use
-  NERDTree's feature "open in new tab silently", as you will lose focus on the
-  NERDTree.)
-
-* `g:nerdtree_tabs_startup_cd` (default: `1`)  
-  When given a directory name as a command line parameter when launching Vim,
-  `:cd` into it.
-
-* `g:nerdtree_tabs_autofind` (default: `0`)  
-  Automatically find and select currently opened file in NERDTree.
-
-### Example
-
-To run NERDTreeTabs on console vim startup, put into your .vimrc:
-
-    let g:nerdtree_tabs_open_on_console_startup=1
-
-## Credits
-
-The tab autoclose feature is stolen from Carl Lerche & Yehuda Katz's
-[Janus](https://github.com/carlhuda/janus). Thanks, guys!
-
+![vim-reduced1](https://www.dropbox.com/s/57mjs7rfzq1h128/vim-reduced1.png?dl=1)
+![vim-reduced2](https://www.dropbox.com/s/l6nvcm91llfxwjx/vim-reduced2.png?dl=1)
+![vim-reduced3](https://www.dropbox.com/s/838qoahio9klsz6/vim-reduced3.png?dl=1)
