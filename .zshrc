@@ -232,7 +232,7 @@ function gadd() {
         fi
     }
 
-function fbr() {
+function gbr() {
     local branches branch
     branches=$(git branch --all | grep -v HEAD) &&
     branch=$(echo "$branches" |
