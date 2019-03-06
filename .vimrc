@@ -1,7 +1,7 @@
 if !&compatible
   set nocompatible
 endif
- 
+
 "------------------
 "dein
 "-----------------
@@ -147,7 +147,9 @@ map Y y$
 inoremap {} {}<LEFT>
 inoremap [] []<LEFT>
 inoremap () ()<LEFT>
-inoremap "" ""<LEFT> inoremap '' ''<LEFT> inoremap <> <><LEFT>
+inoremap "" ""<LEFT> 
+inoremap '' ''<LEFT> 
+inoremap <> <><LEFT>
 
 " 行頭、行末移動
 nnoremap <Space>h  ^

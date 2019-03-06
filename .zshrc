@@ -220,4 +220,25 @@ fkill() {
     echo $pid | xargs kill -${1:-9}
   fi
 }
+
+function gadd() {
+    local addfiles
+    addfiles=($(git status --short | awk '{ print $2 }' | fzf --multi))
+        if [[ -n $addfiles ]]; then
+            git add ${@:1} $addfiles && 
+            echo "git add $addfiles ${@:1}"
+        else
+            echo "nothing added."
+        fi
+    }
+
+function fbr() {
+    local branches branch
+    branches=$(git branch --all | grep -v HEAD) &&
+    branch=$(echo "$branches" |
+    fzf -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") &&
+    echo "git checkout "
+                   }
 fi
+
