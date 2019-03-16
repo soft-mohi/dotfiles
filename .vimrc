@@ -8,15 +8,20 @@ endif
 let s:cache_home = expand('~/.vim')
 let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if !isdirectory(s:dein_repo_dir)
-  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
-let &runtimepath = s:dein_repo_dir .",". &runtimepath
-" プラグイン読み込み＆キャッシュ作成
 let s:toml_file = s:dein_dir.'/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
-  call dein#load_toml(s:toml_file)
+  call dein#add('Shougo/dein.vim')
+  call dein#add('arcticicestudio/nord-vim')
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('scrooloose/nerdtree')
   call dein#end()
   call dein#save_state()
 endif
@@ -80,48 +85,6 @@ set shiftwidth=4             "自動インデントでずれる幅
 set softtabstop=2            "連続した空白に対してbsが消す幅
 set expandtab                "タブ入力を連続した空白に
 
-"tab==============¥
-" Anywhere SID.
-function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
-" Set tabline.
-function! s:my_tabline()  "{{{
-  let s = ''
-  for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)
-    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-    let no = i  " display 0-origin tabpagenr.
-    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-    let title = fnamemodify(bufname(bufnr), ':t')
-    let title = '[' . title . ']'
-    let s .= '%'.i.'T'
-    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= no . ':' . title
-    let s .= mod
-    let s .= '%#TabLineFill# '
-  endfor
-  let s .= '%#TabLineFill#%T%=%#TabLine#'
-  return s
-endfunction "}}}
-let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
-set showtabline=2 " 常にタブラインを表示
-
-" Tab jump
-for n in range(1, 9)
-  execute 'nnoremap <silent> t'.n  ':<C-u>tabnext'.n.'<CR>'
-endfor
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
-nnoremap <silent> tc :tablast <bar> tabnew<CR>
-" tc 新しいタブを一番右に作る
-nnoremap <silent> tx :tabclose<CR>
-" tx タブを閉じる
-nnoremap <silent> tn :tabnext<CR>
-" tn 次のタブ
-nnoremap <silent> tp :tabprevious<CR>
-" tp 前のタブ
-
 "------------------
 "NERDTree
 "------------------
@@ -131,7 +94,7 @@ let NERDTreeWinSize=20
 let NERDTreeShowHidden = 1
 " minimalなUI
 let g:NERDTreeMinimalUI = 1
-noremap <silent><C-e> :NERDTreeTabsToggle<CR>
+noremap <silent><C-e> :NERDTreeToggle<CR>
 
 "------------------
 " マッピング
@@ -181,7 +144,6 @@ nnoremap <C-LEFT> <C-w>h
 " <ESc>二回で検索後の強調表示を解除する
 nnoremap <Esc><Esc> :nohl<CR><Esc>
 
-"最後にあるといいらしい
 " ファイル名と内容によってファイルタイプを判別し、ファイルタイププラグインを有効にする
 filetype indent plugin on
 
