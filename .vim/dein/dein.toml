@@ -14,7 +14,8 @@ repo ='scrooloose/nerdtree'
 [[plugins]]
 repo ='jistr/vim-nerdtree-tabs'
 
-[[plugins]] #カラースキーマ
+[[plugins]]
 repo = 'arcticicestudio/nord-vim'
-[[plugins]] #カラースキーマ
+
+[[plugins]]
 repo = 'w0ng/vim-hybrid'
